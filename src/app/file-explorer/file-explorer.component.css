@@ -1,0 +1,79 @@
+:host {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.file-or-folder {
+  padding: 8px;
+  overflow: hidden;
+}
+
+.folder-icon-color {
+  color: #78d2fb;
+}
+
+.file-icon-color {
+  color: #848284;
+}
+
+.file-or-folder-icon {
+  width: 50px;
+  height: 50px;
+  font-size: 50px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.margin-10 {
+  margin: 0 10px 0 0;
+}
+
+.mat-list {
+  width: 100%;
+}
+
+.mat-list-item {
+  margin: 0 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.mat-list-item .file-or-folder-icon {
+  width: 30px;
+  height: 30px;
+  font-size: 30px;
+  margin-right: 15px;
+  float: left;
+}
+
+.mat-list-texts {
+  width: 100%;
+}
+
+.list-name {
+  margin-top: 6px;
+  display: inline-block;
+}
+
+.list-folder-item {
+  margin-top: 6px;
+  width: 70%;
+  float: left;
+}
+
+.list-timestamp {
+  width: 30%;
+  float: left;
+}

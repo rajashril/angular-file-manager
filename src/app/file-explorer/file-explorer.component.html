@@ -1,0 +1,73 @@
+<mat-toolbar>
+  <mat-icon *ngIf="canNavigateUp" class="pointer" (click)="navigateUp()">undo</mat-icon>
+  <span style="margin-left: 8px">{{path || 'Files'}}</span>
+  <span class="spacer"></span>
+  <mat-icon class="pointer margin-10" (click)=toggleDisplay() *ngIf="!isShowList">list</mat-icon>
+  <mat-icon class="pointer margin-10" (click)=toggleDisplay() *ngIf="isShowList">view_module</mat-icon>
+  <mat-icon class="pointer" [matMenuTriggerFor]="listMenu">create_new_folder</mat-icon>
+</mat-toolbar>
+
+<div class="container" fxFlex fxLayout="row" fxLayoutAlign="space-between stretch">
+  <div class="content" fxFlex fxLayout="row">
+
+    <mat-grid-list cols="8" rowHeight="100px" fxFlex *ngIf="!isShowList">
+      <mat-grid-tile *ngFor="let element of fileElements" class=file-or-folder>
+        <span [matMenuTriggerFor]="rootMenu" [matMenuTriggerData]="{element: element}" #menuTrigger="matMenuTrigger"></span>
+        <div fxLayout="column" fxLayoutAlign="space-between center" (click)="navigate(element)" (contextmenu)="openMenu($event, menuTrigger)">
+          <mat-icon class="file-or-folder-icon pointer folder-icon-color" *ngIf="element.isFolder">folder</mat-icon>
+          <mat-icon class="file-or-folder-icon pointer file-icon-color" *ngIf="!element.isFolder">insert_drive_file</mat-icon>
+          <span>{{element.name}}</span>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-list *ngIf="isShowList">
+      <mat-list-item *ngIf="fileElements.length > 0">
+        <div class="list-folder-item">
+          <div class="mat-list-texts">
+            <span class="list-name">Name</span>
+          </div>
+        </div>
+        <div class="list-timestamp">LastModified</div>
+      </mat-list-item>
+      <mat-list-item *ngFor="let element of fileElements">
+        <div class="list-folder-item">
+          <span [matMenuTriggerFor]="rootMenu" [matMenuTriggerData]="{element: element}" #menuTrigger="matMenuTrigger"></span>
+          <div class="mat-list-texts" (click)="navigate(element)" (contextmenu)="openMenu($event, menuTrigger)">
+            <mat-icon class="file-or-folder-icon pointer folder-icon-color" *ngIf="element.isFolder">folder</mat-icon>
+            <mat-icon class="file-or-folder-icon pointer file-icon-color" *ngIf="!element.isFolder">insert_drive_file</mat-icon>
+            <span class="list-name">{{element.name}}</span>
+          </div>
+        </div>
+        <div class="list-timestamp">{{element.lastModified | date : 'medium'}}</div>
+      </mat-list-item>
+    </mat-list>
+    
+  </div>
+</div>
+
+<mat-menu #rootMenu="matMenu" [overlapTrigger]="false">
+  <ng-template matMenuContent let-element="element">
+    <button mat-menu-item (click)="openRenameDialog(element)">
+      <mat-icon>edit</mat-icon>
+      <span>Rename</span>
+    </button>
+    <button mat-menu-item (click)="deleteElement(element)">
+      <mat-icon>delete</mat-icon>
+      <span>Delete</span>
+    </button>
+  </ng-template>
+</mat-menu>
+
+<mat-menu #listMenu="matMenu" [overlapTrigger]="false">
+  <ng-template matMenuContent let-element="element">
+    <button mat-menu-item (click)="openNewFolderDialog(true)">
+      <mat-icon>create_new_folder</mat-icon>
+      <span>Create New Folder</span>
+    </button>
+    <button mat-menu-item (click)="openNewFolderDialog(false)">
+      <mat-icon>note_add</mat-icon>
+      <span>Create New File</span>
+    </button>
+  </ng-template>
+</mat-menu>
