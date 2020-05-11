@@ -9,7 +9,7 @@ This is demonstration of simple file manager witth following functionality
 
 
 <b>INSTALLATION : </b>
-1. Clone repo from <>
+1. Clone repo from https://github.com/rajashril/angular-file-manager.git
 2. Go to project root folder
 3. Run command `npm install`
 
